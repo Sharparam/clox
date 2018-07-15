@@ -17,7 +17,7 @@ static int instruction_simple(uint8_t instruction, int offset) {
 
 static int instruction_constant(uint8_t instruction, const CloxChunk * const chunk, int offset) {
     uint8_t constantIndex = chunk->code[offset + 1];
-    printf("%-16s %4d '", OPCODE_NAMES[instruction], constantIndex);
+    printf("%-16s 0x%02x '", OPCODE_NAMES[instruction], constantIndex);
     clox_value_print(chunk->constants.values[constantIndex]);
     printf("'\n");
     return offset + 2;
@@ -25,7 +25,7 @@ static int instruction_constant(uint8_t instruction, const CloxChunk * const chu
 
 static int instruction_constant_long(uint8_t instruction, const CloxChunk * const chunk, int offset) {
     uint16_t constantIndex = (chunk->code[offset + 1] << 8) | chunk->code[offset + 2];
-    printf("%-16s %4d '", OPCODE_NAMES[instruction], constantIndex);
+    printf("%-16s 0x%04x '", OPCODE_NAMES[instruction], constantIndex);
     clox_value_print(chunk->constants.values[constantIndex]);
     printf("'\n");
     return offset + 3;
@@ -40,7 +40,7 @@ void clox_chunk_disassemble(const CloxChunk * const chunk, const char * const na
 }
 
 int clox_chunk_disassemble_instruction(const CloxChunk * const chunk, int offset) {
-    printf("%04d ", offset);
+    printf("0x%04x ", offset);
 
     if (offset > 0 && chunk->line_numbers[offset] == chunk->line_numbers[offset - 1]) {
         printf("   | ");
