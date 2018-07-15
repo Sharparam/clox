@@ -38,6 +38,17 @@ void clox_chunk_free(CloxChunk * const chunk) {
     clox_chunk_init(chunk);
 }
 
+void clox_chunk_write_constant(CloxChunk * const chunk, int index, int line) {
+    uint8_t opcode = index > UINT8_MAX ? OP_CONSTANT_LONG : OP_CONSTANT;
+    clox_chunk_write(chunk, opcode, line);
+
+    if (opcode == OP_CONSTANT_LONG) {
+        clox_chunk_write(chunk, index >> 8, line);
+    }
+
+    clox_chunk_write(chunk, index & UINT8_MAX, line);
+}
+
 int clox_chunk_add_constant(CloxChunk * const chunk, CloxValue value) {
     clox_valuearray_write(&chunk->constants, value);
     return chunk->constants.count - 1;

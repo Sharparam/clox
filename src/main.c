@@ -20,8 +20,7 @@ int main(int argc, const char *argv[]) {
     clox_chunk_init(&chunk);
 
     int constantIndex = clox_chunk_add_constant(&chunk, 1.2);
-    clox_chunk_write(&chunk, OP_CONSTANT, 1);
-    clox_chunk_write(&chunk, constantIndex, 1);
+    clox_chunk_write_constant(&chunk, constantIndex, 1);
 
     clox_chunk_write(&chunk, OP_RETURN, 1);
 

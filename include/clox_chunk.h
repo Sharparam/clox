@@ -6,6 +6,7 @@
 
 typedef enum OpCode {
     OP_CONSTANT,
+    OP_CONSTANT_LONG,
     OP_RETURN
 } OpCode;
 
@@ -21,5 +22,7 @@ struct CloxChunk {
 void clox_chunk_init(CloxChunk * const chunk);
 void clox_chunk_write(CloxChunk * const chunk, uint8_t byte, int line);
 void clox_chunk_free(CloxChunk * const chunk);
+
+void clox_chunk_write_constant(CloxChunk * const chunk, int index, int line);
 
 int clox_chunk_add_constant(CloxChunk * const chunk, CloxValue value);

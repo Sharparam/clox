@@ -6,6 +6,7 @@
 
 static const char * const OPCODE_NAMES[] = {
     "OP_CONSTANT",
+    "OP_CONSTANT_LONG",
     "OP_RETURN"
 };
 
@@ -20,6 +21,14 @@ static int instruction_constant(uint8_t instruction, const CloxChunk * const chu
     clox_value_print(chunk->constants.values[constantIndex]);
     printf("'\n");
     return offset + 2;
+}
+
+static int instruction_constant_long(uint8_t instruction, const CloxChunk * const chunk, int offset) {
+    uint16_t constantIndex = (chunk->code[offset + 1] << 8) | chunk->code[offset + 2];
+    printf("%-16s %4d '", OPCODE_NAMES[instruction], constantIndex);
+    clox_value_print(chunk->constants.values[constantIndex]);
+    printf("'\n");
+    return offset + 3;
 }
 
 void clox_chunk_disassemble(const CloxChunk * const chunk, const char * const name) {
@@ -44,6 +53,9 @@ int clox_chunk_disassemble_instruction(const CloxChunk * const chunk, int offset
     switch (instruction) {
         case OP_CONSTANT:
             return instruction_constant(instruction, chunk, offset);
+
+        case OP_CONSTANT_LONG:
+            return instruction_constant_long(instruction, chunk, offset);
 
         case OP_RETURN:
             return instruction_simple(instruction, offset);
