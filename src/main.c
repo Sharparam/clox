@@ -9,9 +9,9 @@ int main(int argc, const char *argv[]) {
         stdout,
         "%s version %d.%d.%d\n",
         argv[0],
-        clox_VERSION_MAJOR,
-        clox_VERSION_MINOR,
-        clox_VERSION_PATCH);
+        CLOX_VERSION_MAJOR,
+        CLOX_VERSION_MINOR,
+        CLOX_VERSION_PATCH);
 
     printf("C standard: %ld\n", __STDC_VERSION__);
 
