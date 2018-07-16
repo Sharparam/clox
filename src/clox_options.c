@@ -42,8 +42,8 @@ CloxOptions clox_options_parse(int argc, char * const argv[]) {
         return options;
     }
 
-    struct option * const long_options = calloc(option_item_count + 1, sizeof(struct option));
-    char *short_options = malloc(sizeof(char) * option_item_count);
+    struct option * const long_options = (struct option *)calloc(option_item_count + 1, sizeof(struct option));
+    char * const short_options = (char *)malloc(sizeof(char) * (option_item_count + 1));
 
     for (int i = 0; i < option_item_count; i++) {
         CloxOptionItem item = option_items[i];
@@ -52,6 +52,8 @@ CloxOptions clox_options_parse(int argc, char * const argv[]) {
         long_options[i].has_arg = item.has_arg;
         short_options[i] = item.short_opt;
     }
+
+    short_options[option_item_count] = '\0';
 
     int option_index;
     int option_character;
