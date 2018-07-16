@@ -574,6 +574,9 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
+### Ninja ###
+.ninja_deps
+.ninja_log
 
 # End of https://www.gitignore.io/api/c,vim,code,cmake,emacs,linux,macos,windows,notepadpp,sublimetext,visualstudio,visualstudiocode
 
