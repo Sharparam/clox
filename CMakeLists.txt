@@ -16,14 +16,24 @@ configure_file(
     "${PROJECT_SOURCE_DIR}/include/clox_config.h.in"
     "${PROJECT_BINARY_DIR}/clox_config.h")
 
-include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_BINARY_DIR}")
+include_directories(
+    "${PROJECT_SOURCE_DIR}/include"
+    "${PROJECT_BINARY_DIR}")
 
 add_executable(clox
     src/main.c
+    src/clox_options.c
     src/clox_chunk.c
     src/clox_memory.c
     src/clox_debug.c
-    src/clox_value.c)
+    src/clox_value.c
+    src/clox_vm.c)
+
+if(MSVC)
+  target_compile_options(clox PRIVATE /W4 /WX)
+else(MSVC)
+  target_compile_options(clox PRIVATE -Wall -Wextra -pedantic -Werror)
+endif(MSVC)
 
 install(TARGETS clox DESTINATION bin)
 

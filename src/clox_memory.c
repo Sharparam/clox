@@ -8,5 +8,9 @@ void *reallocate(void *previous, size_t oldSize, size_t newSize) {
         return NULL;
     }
 
+    if (oldSize == 0) {
+        // New allocation
+    }
+
     return realloc(previous, newSize);
 }

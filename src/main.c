@@ -1,19 +1,36 @@
 #include <stdio.h>
 
+#include "clox_options.h"
 #include "clox_config.h"
 #include "clox_chunk.h"
 #include "clox_debug.h"
+#include "clox_vm.h"
 
-int main(int argc, const char *argv[]) {
-    fprintf(
-        stdout,
-        "%s version %d.%d.%d\n",
-        argv[0],
+static void print_version(const char * const name) {
+    printf(
+        "%s version %d.%d.%d\nC standard: %ld\n",
+        name,
         CLOX_VERSION_MAJOR,
         CLOX_VERSION_MINOR,
-        CLOX_VERSION_PATCH);
+        CLOX_VERSION_PATCH,
+        __STDC_VERSION__);
+}
 
-    printf("C standard: %ld\n", __STDC_VERSION__);
+int main(int argc, char *argv[]) {
+    const char * const progname = argv[0];
+
+    CloxOptions options = clox_options_parse(argc, argv);
+
+    if (options.help) {
+        clox_options_print_help(progname);
+        return 0;
+    }
+
+    if (options.version) {
+        print_version(progname);
+    }
+
+    clox_vm_init();
 
     CloxChunk chunk;
 
@@ -25,7 +42,9 @@ int main(int argc, const char *argv[]) {
     clox_chunk_write(&chunk, OP_RETURN, 1);
 
     clox_chunk_disassemble(&chunk, "Test chunk");
+    clox_vm_interpret(&chunk);
 
+    clox_vm_free();
     clox_chunk_free(&chunk);
 
     return 0;
