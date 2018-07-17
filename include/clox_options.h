@@ -6,6 +6,7 @@ typedef struct CloxOptions CloxOptions;
 struct CloxOptions {
     bool help;
     bool version;
+    bool verbose;
     int index;
 };
 

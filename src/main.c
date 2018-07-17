@@ -39,9 +39,22 @@ int main(int argc, char *argv[]) {
     int constantIndex = clox_chunk_add_constant(&chunk, 1.2);
     clox_chunk_write_constant(&chunk, constantIndex, 1);
 
+    constantIndex = clox_chunk_add_constant(&chunk, 3.4);
+    clox_chunk_write_constant(&chunk, constantIndex, 1);
+
+    clox_chunk_write(&chunk, OP_ADD, 1);
+
+    constantIndex = clox_chunk_add_constant(&chunk, 5.6);
+    clox_chunk_write_constant(&chunk, constantIndex, 1);
+
+    clox_chunk_write(&chunk, OP_DIVIDE, 1);
+    clox_chunk_write(&chunk, OP_NEGATE, 1);
     clox_chunk_write(&chunk, OP_RETURN, 1);
 
-    clox_chunk_disassemble(&chunk, "Test chunk");
+    if (options.verbose) {
+        clox_chunk_disassemble(&chunk, "Test chunk");
+    }
+
     clox_vm_interpret(&chunk);
 
     clox_vm_free();
