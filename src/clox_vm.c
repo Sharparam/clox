@@ -8,6 +8,7 @@
 #include "clox_debug.h"
 
 static CloxVM vm;
+static const void * const stack_end = vm.stack + sizeof(vm.stack) / sizeof(vm.stack[0]);
 
 static CloxInterpretResult run() {
 #define READ_BYTE() (*vm.ip++)
@@ -89,7 +90,7 @@ CloxInterpretResult clox_vm_interpret(CloxChunk * const chunk) {
 }
 
 void clox_vm_stack_push(CloxValue value) {
-    if (vm.stack_top == vm.stack + (sizeof(vm.stack) / sizeof(vm.stack[0]))) {
+    if (vm.stack_top == stack_end) {
         fprintf(stderr, " /!\\ STACK OVERFLOW /!\\\n");
         abort();
     }
