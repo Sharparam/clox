@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "clox_vm.h"
 #include "clox_config.h"
@@ -88,6 +89,11 @@ CloxInterpretResult clox_vm_interpret(CloxChunk * const chunk) {
 }
 
 void clox_vm_stack_push(CloxValue value) {
+    if (vm.stack_top == vm.stack + (sizeof(vm.stack) / sizeof(vm.stack[0]))) {
+        fprintf(stderr, " /!\\ STACK OVERFLOW /!\\\n");
+        abort();
+    }
+
     *vm.stack_top++ = value;
 }
 
