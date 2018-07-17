@@ -22,7 +22,7 @@ struct CloxVM {
 };
 
 void clox_vm_init();
-CloxInterpretResult clox_vm_interpret(CloxChunk * const chunk);
+CloxInterpretResult clox_vm_interpret(const char * const source);
 void clox_vm_stack_push(CloxValue value);
 CloxValue clox_vm_stack_pop();
 void clox_vm_free();

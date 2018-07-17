@@ -24,11 +24,14 @@ include_directories(
 
 add_executable(clox
     src/main.c
+    src/clox_io.c
     src/clox_options.c
     src/clox_chunk.c
     src/clox_memory.c
     src/clox_debug.c
     src/clox_value.c
+    src/clox_scanner.c
+    src/clox_compiler.c
     src/clox_vm.c)
 
 if(MSVC)

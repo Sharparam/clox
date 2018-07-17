@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "clox_vm.h"
+#include "clox_compiler.h"
 #include "clox_config.h"
 #include "clox_value.h"
 #include "clox_debug.h"
@@ -83,10 +84,10 @@ void clox_vm_init() {
     reset_stack();
 }
 
-CloxInterpretResult clox_vm_interpret(CloxChunk * const chunk) {
-    vm.chunk = chunk;
-    vm.ip = vm.chunk->code;
-    return run();
+CloxInterpretResult clox_vm_interpret(const char * const source) {
+    clox_compile(source);
+    run();
+    return INTERPRET_OK;
 }
 
 void clox_vm_stack_push(CloxValue value) {

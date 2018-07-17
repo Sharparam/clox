@@ -5,6 +5,7 @@
 #include <getopt.h>
 
 #include "clox_options.h"
+#include "clox_errors.h"
 
 typedef enum CloxOptionType {
     OPT_TYPE_BOOL,
@@ -118,7 +119,7 @@ CloxOptions clox_options_parse(int argc, char * const argv[]) {
     int option_character;
     while ((option_character = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
         if (option_character == '?') {
-            exit(EXIT_FAILURE);
+            exit(CLOX_EXIT_USAGE_ERROR);
         }
 
         CloxOptionItem *item = find_option_item(option_character);
@@ -154,7 +155,7 @@ CloxOptions clox_options_parse(int argc, char * const argv[]) {
 
             default:
                 fprintf(stderr, "Unknown option type %d\n", item->option_type);
-                exit(EXIT_FAILURE);
+                exit(CLOX_EXIT_USAGE_ERROR);
                 break;
         }
     }

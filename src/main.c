@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#include "clox_io.h"
 #include "clox_options.h"
 #include "clox_config.h"
 #include "clox_chunk.h"
 #include "clox_debug.h"
 #include "clox_vm.h"
+#include "clox_errors.h"
 
 static void print_version(const char * const name) {
     printf(
@@ -14,6 +18,29 @@ static void print_version(const char * const name) {
         CLOX_VERSION_MINOR,
         CLOX_VERSION_PATCH,
         __STDC_VERSION__);
+}
+
+static void repl() {
+    for (;;) {
+        printf("> ");
+        char *line = clox_read_line();
+        clox_vm_interpret(line);
+        free(line);
+    }
+}
+
+static void run_file(const char * const path) {
+    char *contents = clox_read_file(path);
+    CloxInterpretResult result = clox_vm_interpret(contents);
+    free(contents);
+
+    if (result == INTERPRET_COMPILE_ERROR) {
+        exit(CLOX_EXIT_COMPILE_ERROR);
+    }
+
+    if (result == INTERPRET_RUNTIME_ERROR) {
+        exit(CLOX_EXIT_RUNTIME_ERROR);
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -32,33 +59,18 @@ int main(int argc, char *argv[]) {
 
     clox_vm_init();
 
-    CloxChunk chunk;
-
-    clox_chunk_init(&chunk);
-
-    int constantIndex = clox_chunk_add_constant(&chunk, 1.2);
-    clox_chunk_write_constant(&chunk, constantIndex, 1);
-
-    constantIndex = clox_chunk_add_constant(&chunk, 3.4);
-    clox_chunk_write_constant(&chunk, constantIndex, 1);
-
-    clox_chunk_write(&chunk, OP_ADD, 1);
-
-    constantIndex = clox_chunk_add_constant(&chunk, 5.6);
-    clox_chunk_write_constant(&chunk, constantIndex, 1);
-
-    clox_chunk_write(&chunk, OP_DIVIDE, 1);
-    clox_chunk_write(&chunk, OP_NEGATE, 1);
-    clox_chunk_write(&chunk, OP_RETURN, 1);
-
-    if (options.verbose) {
-        clox_chunk_disassemble(&chunk, "Test chunk");
+    if (options.index == argc) {
+        repl();
+    } else if (options.index == argc - 1) {
+        char *scriptPath = argv[options.index];
+        run_file(scriptPath);
+    } else {
+        fprintf(stderr, "Usage: %s [path]\n", progname);
+        clox_vm_free();
+        exit(CLOX_EXIT_USAGE_ERROR);
     }
 
-    clox_vm_interpret(&chunk);
-
     clox_vm_free();
-    clox_chunk_free(&chunk);
 
     return 0;
 }
