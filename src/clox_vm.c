@@ -85,9 +85,21 @@ void clox_vm_init() {
 }
 
 CloxInterpretResult clox_vm_interpret(const char * const source) {
-    clox_compile(source);
-    run();
-    return INTERPRET_OK;
+    CloxChunk chunk;
+    clox_chunk_init(&chunk);
+
+    if (!clox_compiler_compile(source, &chunk)) {
+        clox_chunk_free(&chunk);
+        return INTERPRET_COMPILE_ERROR;
+    }
+
+    vm.chunk = &chunk;
+    vm.ip = vm.chunk->code;
+
+    CloxInterpretResult result = run();
+
+    clox_chunk_free(&chunk);
+    return result;
 }
 
 void clox_vm_stack_push(CloxValue value) {

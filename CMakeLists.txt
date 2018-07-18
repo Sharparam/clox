@@ -12,6 +12,7 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
+option(CLOX_DEBUG_PRINT_CODE "Print code after compilation.")
 option(CLOX_DEBUG_TRACE_EXECUTION "Print debug information for each instruction as they're executed" OFF)
 
 configure_file(
