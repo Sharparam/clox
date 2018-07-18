@@ -5,7 +5,9 @@ The implementation follows part III of [the book][book] by [munificent][].
 
 ## Usage
 
-Not much yet, but launch it via `./build/clox` from the root of the repo after building it.
+Launch it via `./build/clox` from the root of the repo after building it. Passing no arguments will start the REPL.
+
+Pass a file as an argument to execute the file: `./build/clox myfile.lox`
 
 For a description of some options available, run it with the `-h` or `--help` option.
 
