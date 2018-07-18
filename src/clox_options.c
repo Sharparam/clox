@@ -51,7 +51,7 @@ static CloxOptionItem * find_option_item(int option_character) {
 }
 
 void clox_options_print_help(const char * const program_name) {
-    printf("Usage: %s [OPTIONS]\n", program_name);
+    printf("Usage: %s [OPTIONS] [file]\n", program_name);
     printf("C implementation of the Lox language\n\n");
 
     for (int i = 0; i < option_item_count; i++) {
