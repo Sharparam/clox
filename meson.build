@@ -22,16 +22,14 @@ src = [
 version_parts = meson.project_version().split('.')
 
 conf_data = configuration_data({
-  'version': meson.project_version(),
-  'version_major': version_parts[0],
-  'version_minor': version_parts[1],
-  'version_patch': version_parts[2],
+  'CLOX_VERSION_MAJOR': version_parts[0],
+  'CLOX_VERSION_MINOR': version_parts[1],
+  'CLOX_VERSION_PATCH': version_parts[2],
   'CLOX_DEBUG_PRINT_CODE': get_option('print_code'),
   'CLOX_DEBUG_TRACE_EXECUTION': get_option('trace')
 })
-configure_file(input : 'include/config.h.in',
-  output: 'config.h',
-  configuration: conf_data)
+conf_data.set_quoted('CLOX_VERSION_STR', meson.project_version())
+configure_file(output: 'config.h', configuration: conf_data)
 
 exe = executable('clox', src,
   include_directories : inc,

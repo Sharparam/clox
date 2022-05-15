@@ -1,9 +1,0 @@
-#pragma once
-
-#define CLOX_VERSION_STR "@version@"
-#define CLOX_VERSION_MAJOR @version_major@
-#define CLOX_VERSION_MINOR @version_minor@
-#define CLOX_VERSION_PATCH @version_patch@
-
-#mesondefine CLOX_DEBUG_PRINT_CODE
-#mesondefine CLOX_DEBUG_TRACE_EXECUTION
