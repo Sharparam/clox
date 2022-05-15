@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "clox_io.h"
-#include "clox_options.h"
-#include "clox_config.h"
-#include "clox_chunk.h"
-#include "clox_debug.h"
-#include "clox_vm.h"
-#include "clox_errors.h"
+#include "io.h"
+#include "options.h"
+#include "config.h"
+#include "chunk.h"
+#include "debug.h"
+#include "vm.h"
+#include "errors.h"
 
 static void print_version(const char * const name) {
     printf(

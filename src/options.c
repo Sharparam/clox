@@ -4,8 +4,8 @@
 #include <string.h>
 #include <getopt.h>
 
-#include "clox_options.h"
-#include "clox_errors.h"
+#include "options.h"
+#include "errors.h"
 
 typedef enum CloxOptionType {
     OPT_TYPE_BOOL,
@@ -60,7 +60,8 @@ void clox_options_print_help(const char * const program_name) {
             case OPT_TYPE_REQUIRED_ARG: {
                 char *tmp = (char*)calloc(strlen(item.long_opt) + 5, sizeof(char));
                 strncpy(tmp, item.long_opt, strlen(item.long_opt));
-                strncat(tmp, "=ARG", 4);
+                //strncat(tmp, "=ARG", 4);
+                strcat(tmp, "=ARG");
                 printf("    -%cARG, --%-20s %s\n", item.short_opt, tmp, item.description);
                 free(tmp);
                 break;
@@ -69,7 +70,8 @@ void clox_options_print_help(const char * const program_name) {
             case OPT_TYPE_OPTIONAL_ARG: {
                 char *tmp = (char*)calloc(strlen(item.long_opt) + 7, sizeof(char));
                 strncpy(tmp, item.long_opt, strlen(item.long_opt));
-                strncat(tmp, "[=ARG]", 6);
+                //strncat(tmp, "[=ARG]", 6);
+                strcat(tmp, "[=ARG]");
                 printf("  -%c[ARG], --%-20s %s\n", item.short_opt, tmp, item.description);
                 free(tmp);
                 break;

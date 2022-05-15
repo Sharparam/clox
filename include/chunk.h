@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#include "clox_value.h"
+#include "value.h"
 
 typedef enum OpCode {
     OP_CONSTANT,

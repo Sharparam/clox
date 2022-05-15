@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "clox_compiler.h"
-#include "clox_config.h"
-#include "clox_scanner.h"
-#include "clox_chunk.h"
-#include "clox_value.h"
+#include "compiler.h"
+#include "config.h"
+#include "scanner.h"
+#include "chunk.h"
+#include "value.h"
 
 #ifdef CLOX_DEBUG_PRINT_CODE
 #include "clox_debug.h"

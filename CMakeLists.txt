@@ -16,8 +16,8 @@ option(CLOX_DEBUG_PRINT_CODE "Print code after compilation.")
 option(CLOX_DEBUG_TRACE_EXECUTION "Print debug information for each instruction as they're executed" OFF)
 
 configure_file(
-    "${PROJECT_SOURCE_DIR}/include/clox_config.h.in"
-    "${PROJECT_BINARY_DIR}/clox_config.h")
+    "${PROJECT_SOURCE_DIR}/include/config.h.in"
+    "${PROJECT_BINARY_DIR}/config.h")
 
 include_directories(
     "${PROJECT_SOURCE_DIR}/include"
@@ -25,15 +25,15 @@ include_directories(
 
 add_executable(clox
     src/main.c
-    src/clox_io.c
-    src/clox_options.c
-    src/clox_chunk.c
-    src/clox_memory.c
-    src/clox_debug.c
-    src/clox_value.c
-    src/clox_scanner.c
-    src/clox_compiler.c
-    src/clox_vm.c)
+    src/io.c
+    src/options.c
+    src/chunk.c
+    src/memory.c
+    src/debug.c
+    src/value.c
+    src/scanner.c
+    src/compiler.c
+    src/vm.c)
 
 if(MSVC)
   target_compile_options(clox PRIVATE /W4 /WX)

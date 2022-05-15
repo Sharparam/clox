@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "clox_scanner.h"
+#include "scanner.h"
 
 typedef struct CloxScanner CloxScanner;
 struct CloxScanner {

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "clox_io.h"
-#include "clox_errors.h"
+#include "io.h"
+#include "errors.h"
 
 char * clox_read_line() {
     size_t buffer_size = 1024;

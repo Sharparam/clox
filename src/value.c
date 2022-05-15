@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "clox_memory.h"
-#include "clox_value.h"
+#include "memory.h"
+#include "value.h"
 
 void clox_value_print(CloxValue value) {
     printf("%g", value);

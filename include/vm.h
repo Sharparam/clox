@@ -2,8 +2,8 @@
 
 #include <stdint.h>
 
-#include "clox_chunk.h"
-#include "clox_value.h"
+#include "chunk.h"
+#include "value.h"
 
 #define CLOX_VM_STACK_MAX 256
 

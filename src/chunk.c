@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "clox_chunk.h"
-#include "clox_memory.h"
+#include "chunk.h"
+#include "memory.h"
 
 void clox_chunk_init(CloxChunk * const chunk) {
     chunk->capacity = 0;

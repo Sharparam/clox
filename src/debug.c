@@ -1,8 +1,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "clox_debug.h"
-#include "clox_value.h"
+#include "debug.h"
+#include "value.h"
 
 static int instruction_simple(const char * const name, int offset) {
     printf("%-16s\n", name);

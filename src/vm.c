@@ -2,19 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "clox_vm.h"
-#include "clox_compiler.h"
-#include "clox_config.h"
-#include "clox_value.h"
-#include "clox_debug.h"
+#include "vm.h"
+#include "compiler.h"
+#include "config.h"
+#include "value.h"
+#include "debug.h"
 
 static CloxVM vm;
 static const void * const stack_end = vm.stack + sizeof(vm.stack) / sizeof(vm.stack[0]);
 
 static CloxInterpretResult run() {
+
 #define READ_BYTE() (*vm.ip++)
 #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
-#define READ_CONSTANT_LONG() (vm.chunk->constants.values[(READ_BYTE() << 8) | READ_BYTE()])
 #define BINARY_OP(op) do { \
         CloxValue b = clox_vm_stack_pop(); \
         CloxValue a = clox_vm_stack_pop(); \
@@ -39,9 +39,14 @@ static CloxInterpretResult run() {
                 clox_vm_stack_push(READ_CONSTANT());
                 break;
 
-            case OP_CONSTANT_LONG:
-                clox_vm_stack_push(READ_CONSTANT_LONG());
+            case OP_CONSTANT_LONG: {
+                uint8_t high = READ_BYTE() << 8;
+                uint8_t low = READ_BYTE();
+                size_t idx = high | low;
+                CloxValue value = vm.chunk->constants.values[idx];
+                clox_vm_stack_push(value);
                 break;
+            }
 
             case OP_ADD:
                 BINARY_OP(+);
@@ -71,7 +76,6 @@ static CloxInterpretResult run() {
     }
 
 #undef BINARY_OP
-#undef READ_CONSTANT_LONG
 #undef READ_CONSTANT
 #undef READ_BYTE
 }
