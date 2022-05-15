@@ -13,19 +13,20 @@ For a description of some options available, run it with the `-h` or `--help` op
 
 ## Building
 
-Generate build files with [CMake][cmake] and then build as you're used to.
+Generate build files with [Meson][meson] and then build as you're used to.
 
 If you're on Linux with Ninja available:
 
 ```
-$ mkdir build && cd build
-$ cmake -G "Ninja" ..
-$ ninja
+$ meson setup build
+$ meson compile -C build
 ```
+
+You can also build/compile by running `ninja -C build` after setting up with Meson.
 
 ## License
 
-Copyright (c) 2018 by Adam Hellberg.
+Copyright (c) 2018-2022 by Adam Hellberg.
 
 This project is licensed under the [MIT License][mit], following the [main repo][main] licensing the code part under MIT.
 
@@ -35,4 +36,4 @@ See the file `LICENSE` for more information.
 [munificent]: https://github.com/munificent
 [mit]: https://opensource.org/licenses/MIT
 [main]: https://github.com/munificent/craftinginterpreters
-[cmake]: https://cmake.org/
+[meson]: https://mesonbuild.com/
