@@ -1,0 +1,2 @@
+option('print_code', type : 'boolean', value : false, description : 'Print code after compilation')
+option('trace', type : 'boolean', value : false, description: 'Print debug information for each instruction as they\'re executed')
