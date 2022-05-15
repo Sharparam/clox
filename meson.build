@@ -34,5 +34,3 @@ configure_file(output: 'config.h', configuration: conf_data)
 exe = executable('clox', src,
   include_directories : inc,
   install : true)
-
-test('basic', exe)
