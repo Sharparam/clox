@@ -15,14 +15,11 @@ For a description of some options available, run it with the `-h` or `--help` op
 
 Generate build files with [Meson][meson] and then build as you're used to.
 
-If you're on Linux with Ninja available:
+If you're on Linux with Meson installed:
 
 ```
-$ meson setup build
-$ meson compile -C build
+$ ./build.sh
 ```
-
-You can also build/compile by running `ninja -C build` after setting up with Meson.
 
 ## License
 
